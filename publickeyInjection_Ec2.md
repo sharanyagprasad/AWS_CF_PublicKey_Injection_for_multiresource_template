@@ -218,6 +218,10 @@ Replace `<Public-IP>` with the actual public IP address of your EC2 instance.
 ---
 
 Now you’ve successfully set up a CloudFormation stack, injected your public key into an EC2 instance, and connected to it via SSH. This method ensures full control over key management, crucial for secure cloud deployments.
-Feel free to explore the [AWS CloudFormation MultiResource Stack](https://aws-iac-cloudformation-introduction.hashnode.dev/aws-cloudformation-a-guide-to-multi-resource-deployment-ec2-s3-iam-vpc) for more advanced use cases.
 
-Visit my Github repo () for the current implementation.
+Visit my Github repo [AWS_CF_PublicKey_Injection_for_multiresource_template](https://github.com/sharanyagprasad/AWS_CF_PublicKey_Injection_for_multiresource_template) for the current implementation.
+
+Feel free to explore these:
+- [An Introduction to AWS CloudFormation: Laying the Foundation for Cloud Infrastructure](https://aws-iac-cloudformation-introduction.hashnode.dev/an-introduction-to-aws-cloudformation-laying-the-foundation-for-cloud-infrastructure) for Infrastructure as Code and AWS CF Basics.
+- [AWS CloudFormation MultiResource Stack](https://aws-iac-cloudformation-introduction.hashnode.dev/aws-cloudformation-a-guide-to-multi-resource-deployment-ec2-s3-iam-vpc) for more advanced use cases.
+
