@@ -1,0 +1,53 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Create EC2 instance with Security Group, VPC, and inject a public SSH key
+
+Resources:
+  MyVPC:
+    Type: "AWS::EC2::VPC"
+    Properties:
+      CidrBlock: "10.0.0.0/16"
+      Tags:
+        - Key: "Name"
+          Value: "MyVPC"
+
+  MySubnet:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      VpcId: !Ref MyVPC
+      CidrBlock: "10.0.1.0/24"
+      AvailabilityZone: "eu-central-1a"
+      Tags:
+        - Key: "Name"
+          Value: "MySubnet"
+
+  MyEC2SecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: "Allow SSH and HTTP traffic"
+      VpcId: !Ref MyVPC
+      SecurityGroupIngress:
+        - IpProtocol: "tcp"
+          FromPort: "22"
+          ToPort: "22"
+          CidrIp: "0.0.0.0/0"
+        - IpProtocol: "tcp"
+          FromPort: "80"
+          ToPort: "80"
+          CidrIp: "0.0.0.0/0"
+
+  MyEC2Instance:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      InstanceType: "t2.micro"
+      KeyName: !Ref MyKeyPair
+      SubnetId: !Ref MySubnet
+      SecurityGroupIds:
+        - !Ref MyEC2SecurityGroup
+      ImageId: "ami-0c55b159cbfafe1f0"
+
+  MyKeyPair:
+    Type: "AWS::EC2::KeyPair"
+    Properties:
+      KeyName: "MyKeyPair"
+      PublicKeyMaterial: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDSqsN3D0qK3GNwWdLPHP1nzPNoknCCWMdkyNX7wXnWJckz66g5YYKlwZgGwjixgN8MsI1qkZlppbyylshXaA3YYRmI/3Iq33UHj8clMvkBh+PnjjtyW/FhMTf6SMvDl7mjut2U1vXgK9Ktxt4maUEi/uMuDc4atsnotdZ5P5jfsBpH5ClqhXGuZVWqCc2xcLafZOrFg9bH8ZGbRfEBj1KAq7kxRlYYL8Jl+kPCyChKXln6oP+3iZX0AfK2ny9SNJ3yrmkuRItqLk3h7JwQ6L7at2SiKESVWf7AoDYo6qZwusTZfpLmGWO3BVNXDjtAMqBCVKrshs9k/upUtOXvYhKJ dci-student@DESKTOP-J3VFHH8
+"
